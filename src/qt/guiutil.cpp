@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2011-2013 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "guiutil.h"
 
-#include "bitcoinaddressvalidator.h"
-#include "bitcoinunits.h"
+#include "hodlcoinaddressvalidator.h"
+#include "hodlcoinunits.h"
 #include "qvalidatedlineedit.h"
 #include "walletmodel.h"
 
@@ -88,7 +88,7 @@ QString dateTimeStr(qint64 nTime)
     return dateTimeStr(QDateTime::fromTime_t((qint32)nTime));
 }
 
-QFont bitcoinAddressFont()
+QFont hodlcoinAddressFont()
 {
     QFont font("Monospace");
 #if QT_VERSION >= 0x040800
@@ -103,14 +103,14 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 {
     parent->setFocusProxy(widget);
 
-    widget->setFont(bitcoinAddressFont());
+    widget->setFont(hodlcoinAddressFont());
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a Bitcoin address (e.g. %1)").arg("1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L"));
+    widget->setPlaceholderText(QObject::tr("Enter a HODLCoin address (e.g. %1)").arg("1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L"));
 #endif
-    widget->setValidator(new BitcoinAddressEntryValidator(parent));
-    widget->setCheckValidator(new BitcoinAddressCheckValidator(parent));
+    widget->setValidator(new HODLCoinAddressEntryValidator(parent));
+    widget->setCheckValidator(new HODLCoinAddressCheckValidator(parent));
 }
 
 void setupAmountWidget(QLineEdit *widget, QWidget *parent)
@@ -122,10 +122,10 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
     widget->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 }
 
-bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
+bool parseHODLCoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // return if URI is not valid or is no bitcoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("bitcoin"))
+    // return if URI is not valid or is no hodlcoin: URI
+    if(!uri.isValid() || uri.scheme() != QString("hodlcoin"))
         return false;
 
     SendCoinsRecipient rv;
@@ -165,7 +165,7 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
         {
             if(!i->second.isEmpty())
             {
-                if(!BitcoinUnits::parse(BitcoinUnits::HODL, i->second, &rv.amount))
+                if(!HODLCoinUnits::parse(HODLCoinUnits::HODL, i->second, &rv.amount))
                 {
                     return false;
                 }
@@ -183,28 +183,28 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
     return true;
 }
 
-bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
+bool parseHODLCoinURI(QString uri, SendCoinsRecipient *out)
 {
-    // Convert bitcoin:// to bitcoin:
+    // Convert hodlcoin:// to hodlcoin:
     //
-    //    Cannot handle this later, because bitcoin:// will cause Qt to see the part after // as host,
+    //    Cannot handle this later, because hodlcoin:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("bitcoin://", Qt::CaseInsensitive))
+    if(uri.startsWith("hodlcoin://", Qt::CaseInsensitive))
     {
-        uri.replace(0, 10, "bitcoin:");
+        uri.replace(0, 10, "hodlcoin:");
     }
     QUrl uriInstance(uri);
-    return parseBitcoinURI(uriInstance, out);
+    return parseHODLCoinURI(uriInstance, out);
 }
 
-QString formatBitcoinURI(const SendCoinsRecipient &info)
+QString formatHODLCoinURI(const SendCoinsRecipient &info)
 {
-    QString ret = QString("bitcoin:%1").arg(info.address);
+    QString ret = QString("hodlcoin:%1").arg(info.address);
     int paramCount = 0;
 
     if (info.amount)
     {
-        ret += QString("?amount=%1").arg(BitcoinUnits::format(BitcoinUnits::HODL, info.amount, false, BitcoinUnits::separatorNever));
+        ret += QString("?amount=%1").arg(HODLCoinUnits::format(HODLCoinUnits::HODL, info.amount, false, HODLCoinUnits::separatorNever));
         paramCount++;
     }
 
@@ -227,7 +227,7 @@ QString formatBitcoinURI(const SendCoinsRecipient &info)
 
 bool isDust(const QString& address, const CAmount& amount)
 {
-    CTxDestination dest = CBitcoinAddress(address.toStdString()).Get();
+    CTxDestination dest = CHODLCoinAddress(address.toStdString()).Get();
     CScript script = GetScriptForDestination(dest);
     CTxOut txOut(amount, script);
     return txOut.IsDust(::minRelayTxFee);
@@ -578,7 +578,7 @@ boost::filesystem::path static StartupShortcutPath()
 
 bool GetStartOnSystemStartup()
 {
-    // check for Bitcoin*.lnk
+    // check for HODLCoin*.lnk
     return boost::filesystem::exists(StartupShortcutPath());
 }
 
@@ -668,7 +668,7 @@ boost::filesystem::path static GetAutostartDir()
 
 boost::filesystem::path static GetAutostartFilePath()
 {
-    return GetAutostartDir() / "bitcoin.desktop";
+    return GetAutostartDir() / "hodlcoin.desktop";
 }
 
 bool GetStartOnSystemStartup()
@@ -706,7 +706,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         boost::filesystem::ofstream optionFile(GetAutostartFilePath(), std::ios_base::out|std::ios_base::trunc);
         if (!optionFile.good())
             return false;
-        // Write a bitcoin.desktop file to the autostart directory:
+        // Write a hodlcoin.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (GetBoolArg("-testnet", false))
@@ -733,7 +733,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
 LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl);
 LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef findUrl)
 {
-    // loop through the list of startup items and try to find the bitcoin app
+    // loop through the list of startup items and try to find the hodlcoin app
     CFArrayRef listSnapshot = LSSharedFileListCopySnapshot(list, NULL);
     for(int i = 0; i < CFArrayGetCount(listSnapshot); i++) {
         LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(listSnapshot, i);
@@ -765,21 +765,21 @@ LSSharedFileListItemRef findStartupItemInList(LSSharedFileListRef list, CFURLRef
 
 bool GetStartOnSystemStartup()
 {
-    CFURLRef bitcoinAppUrl = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    CFURLRef hodlcoinAppUrl = CFBundleCopyBundleURL(CFBundleGetMainBundle());
     LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, bitcoinAppUrl);
+    LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, hodlcoinAppUrl);
     return !!foundItem; // return boolified object
 }
 
 bool SetStartOnSystemStartup(bool fAutoStart)
 {
-    CFURLRef bitcoinAppUrl = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    CFURLRef hodlcoinAppUrl = CFBundleCopyBundleURL(CFBundleGetMainBundle());
     LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, bitcoinAppUrl);
+    LSSharedFileListItemRef foundItem = findStartupItemInList(loginItems, hodlcoinAppUrl);
 
     if(fAutoStart && !foundItem) {
-        // add bitcoin app to startup item list
-        LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, bitcoinAppUrl, NULL, NULL);
+        // add hodlcoin app to startup item list
+        LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, hodlcoinAppUrl, NULL, NULL);
     }
     else if(!fAutoStart && foundItem) {
         // remove item

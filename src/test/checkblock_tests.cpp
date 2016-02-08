@@ -1,11 +1,11 @@
-// Copyright (c) 2013-2014 The Bitcoin Core developers
+// Copyright (c) 2013-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "clientversion.h"
 #include "consensus/validation.h"
 #include "main.h"
-#include "test/test_bitcoin.h"
+#include "test/test_hodlcoin.h"
 #include "utiltime.h"
 
 #include <cstdio>
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(May15)
     // Putting a 1MB binary file in the git repository is not a great
     // idea, so this test is only run if you manually download
     // test/data/Mar12Fork.dat from
-    // http://sourceforge.net/projects/bitcoin/files/Bitcoin/blockchain/Mar12Fork.dat/download
+    // http://sourceforge.net/projects/hodlcoin/files/HODLCoin/blockchain/Mar12Fork.dat/download
     unsigned int tMay15 = 1368576000;
     SetMockTime(tMay15); // Test as if it was right at May 15
 

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2009-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/hodlcoin-config.h"
 #endif
 
 #include "util.h"
@@ -381,7 +381,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "bitcoin";
+    const char* pszModule = "hodlcoin";
 #endif
     if (pex)
         return strprintf(
@@ -402,10 +402,10 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcoin
-    // Mac: ~/Library/Application Support/Bitcoin
-    // Unix: ~/.bitcoin
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\hodlcoin
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\hodlcoin
+    // Mac: ~/Library/Application Support/hodlcoin
+    // Unix: ~/.hodlcoin
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "HOdlcoin";
@@ -423,7 +423,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "HOdlcoin";
 #else
     // Unix
-    return pathRet / ".bitcoin";
+    return pathRet / ".hodlcoin";
 #endif
 #endif
 }
@@ -506,7 +506,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 #ifndef WIN32
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "bitcoind.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "hodlcoind.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }

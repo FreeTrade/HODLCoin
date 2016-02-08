@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Copyright (c) 2014 The Bitcoin Core developers
+# Copyright (c) 2014 The HODLCoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,12 +7,12 @@
 # Test merkleblock fetch/validation
 #
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import HODLCoinTestFramework
 from test_framework.util import *
 import os
 import shutil
 
-class MerkleBlockTest(BitcoinTestFramework):
+class MerkleBlockTest(HODLCoinTestFramework):
 
     def setup_chain(self):
         print("Initializing test directory "+self.options.tmpdir)

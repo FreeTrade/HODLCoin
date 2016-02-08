@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This is a thin wrapper around hodlcoin-cli that strips the Windows-style EOLs
+# from the output if present. It is necessary when using hodlcoin-cli.exe on
+# Linux since shells will interpret the line-endings as part of the result.
+
+CURDIR=$(cd $(dirname "$0"); pwd)
+# Get BUILDDIR and REAL_HODLCOIND
+
+# Grab the value of $REAL_HODLCOINCLI which may be hodlcoin-cli.exe.
+. "${CURDIR}/tests-config.sh"
+
+"${REAL_HODLCOINCLI}" "$@" | sed 's/\r//'

@@ -1,0 +1,11 @@
+[Protocol]
+exec=hodlcoin-qt '%u'
+protocol=hodlcoin
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

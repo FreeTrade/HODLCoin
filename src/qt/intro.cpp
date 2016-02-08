@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2011-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -168,7 +168,7 @@ void Intro::pickDataDirectory()
         /* If current default data directory does not exist, let the user choose one */
         Intro intro;
         intro.setDataDirectory(dataDir);
-        intro.setWindowIcon(SingleColorIcon(":icons/bitcoin"));
+        intro.setWindowIcon(SingleColorIcon(":icons/hodlcoin"));
 
         while(true)
         {
@@ -192,7 +192,7 @@ void Intro::pickDataDirectory()
     }
     /* Only override -datadir if different from the default, to make it possible to
      * override -datadir in the hodlcoin.conf file in the default data directory
-     * (to be consistent with bitcoind behavior)
+     * (to be consistent with hodlcoind behavior)
      */
     if(dataDir != getDefaultDataDirectory())
         SoftSetArg("-datadir", GUIUtil::qstringToBoostPath(dataDir).string()); // use OS locale for path setting

@@ -1,7 +1,7 @@
 Translation Strings Policy
 ===========================
 
-This document provides guidelines for internationalization of the Bitcoin Core software.
+This document provides guidelines for internationalization of the HODLCoin Core software.
 
 How to translate?
 ------------------
@@ -68,4 +68,4 @@ This may sometimes be at conflict with the recommendation in the previous sectio
 
 During a string freeze (often before a major release), no translation strings are to be added, modified or removed.
 
-This can be checked by executing `make translate` in the `src` directory, then verifying that `bitcoin_en.ts` remains unchanged.
+This can be checked by executing `make translate` in the `src` directory, then verifying that `hodlcoin_en.ts` remains unchanged.

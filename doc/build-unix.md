@@ -1,10 +1,10 @@
 UNIX BUILD NOTES
 ====================
-Some notes on how to build Bitcoin in Unix. 
+Some notes on how to build HODLCoin in Unix. 
 
 Note
 ---------------------
-Always use absolute paths to configure and compile bitcoin and the dependencies,
+Always use absolute paths to configure and compile hodlcoin and the dependencies,
 for example, when specifying the the path of the dependency:
 
 	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
@@ -22,7 +22,7 @@ make
 make install # optional
 ```
 
-This will build bitcoin-qt as well if the dependencies are met.
+This will build hodlcoin-qt as well if the dependencies are met.
 
 Dependencies
 ---------------------
@@ -50,7 +50,7 @@ System requirements
 --------------------
 
 C++ compilers are memory-hungry. It is recommended to have at least 1 GB of
-memory available when compiling Bitcoin Core. With 512MB of memory or less
+memory available when compiling HODLCoin Core. With 512MB of memory or less
 compilation will take much longer due to swap thrashing.
 
 Dependency Build Instructions: Ubuntu & Debian
@@ -63,10 +63,10 @@ For Ubuntu 12.04 and later or Debian 7 and later libboost-all-dev has to be inst
 
 	sudo apt-get install libboost-all-dev
 
- db4.8 packages are available [here](https://launchpad.net/~bitcoin/+archive/bitcoin).
+ db4.8 packages are available [here](https://launchpad.net/~hodlcoin/+archive/hodlcoin).
  You can add the repository using the following command:
 
-        sudo add-apt-repository ppa:bitcoin/bitcoin
+        sudo add-apt-repository ppa:hodlcoin/hodlcoin
         sudo apt-get update
 
  Ubuntu 12.04 and later have packages for libdb5.1-dev and libdb5.1++-dev,
@@ -83,7 +83,7 @@ Optional:
 Dependencies for the GUI: Ubuntu & Debian
 -----------------------------------------
 
-If you want to build Bitcoin-Qt, make sure that the required packages for Qt development
+If you want to build HODLCoin-Qt, make sure that the required packages for Qt development
 are installed. Either Qt 4 or Qt 5 are necessary to build the GUI.
 If both Qt 4 and Qt 5 are installed, Qt 4 will be used. Pass `--with-gui=qt5` to configure to choose Qt5.
 To build without GUI pass `--without-gui`.
@@ -100,12 +100,12 @@ libqrencode (optional) can be installed with:
 
     sudo apt-get install libqrencode-dev
 
-Once these are installed, they will be found by configure and a bitcoin-qt executable will be
+Once these are installed, they will be found by configure and a hodlcoin-qt executable will be
 built by default.
 
 Notes
 -----
-The release is built with GCC and then "strip bitcoind" to strip the debug
+The release is built with GCC and then "strip hodlcoind" to strip the debug
 symbols, which reduces the executable size by about 90%.
 
 
@@ -134,10 +134,10 @@ Berkeley DB
 It is recommended to use Berkeley DB 4.8. If you have to build it yourself:
 
 ```bash
-BITCOIN_ROOT=$(pwd)
+HODLCOIN_ROOT=$(pwd)
 
-# Pick some path to install BDB to, here we create a directory within the bitcoin directory
-BDB_PREFIX="${BITCOIN_ROOT}/db4"
+# Pick some path to install BDB to, here we create a directory within the hodlcoin directory
+BDB_PREFIX="${HODLCOIN_ROOT}/db4"
 mkdir -p $BDB_PREFIX
 
 # Fetch the source and verify that it is not tampered with
@@ -152,8 +152,8 @@ cd db-4.8.30.NC/build_unix/
 ../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
 make install
 
-# Configure Bitcoin Core to use our own-built instance of BDB
-cd $BITCOIN_ROOT
+# Configure HODLCoin Core to use our own-built instance of BDB
+cd $HODLCOIN_ROOT
 ./configure (other args...) LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/"
 ```
 
@@ -170,7 +170,7 @@ If you need to build Boost yourself:
 
 Security
 --------
-To help make your bitcoin installation more secure by making certain attacks impossible to
+To help make your hodlcoin installation more secure by making certain attacks impossible to
 exploit even if a vulnerability is found, binaries are hardened by default.
 This can be disabled with:
 
@@ -194,7 +194,7 @@ Hardening enables the following features:
 
     To test that you have built PIE executable, install scanelf, part of paxutils, and use:
 
-    	scanelf -e ./bitcoin
+    	scanelf -e ./hodlcoin
 
     The output should contain:
      TYPE
@@ -202,13 +202,13 @@ Hardening enables the following features:
 
 * Non-executable Stack
     If the stack is executable then trivial stack based buffer overflow exploits are possible if
-    vulnerable buffers are found. By default, bitcoin should be built with a non-executable stack
+    vulnerable buffers are found. By default, hodlcoin should be built with a non-executable stack
     but if one of the libraries it uses asks for an executable stack or someone makes a mistake
     and uses a compiler extension which requires an executable stack, it will silently build an
     executable without the non-executable stack protection.
 
     To verify that the stack is non-executable after compiling use:
-    `scanelf -e ./bitcoin`
+    `scanelf -e ./hodlcoin`
 
     the output should contain:
 	STK/REL/PTL
@@ -218,7 +218,7 @@ Hardening enables the following features:
 
 Disable-wallet mode
 --------------------
-When the intention is to run only a P2P node without a wallet, bitcoin may be compiled in
+When the intention is to run only a P2P node without a wallet, hodlcoin may be compiled in
 disable-wallet mode with:
 
     ./configure --disable-wallet

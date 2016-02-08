@@ -1,11 +1,11 @@
-// Copyright (c) 2009-2013 The Bitcoin Core developers
+// Copyright (c) 2009-2013 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "support/pagelocker.h"
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/hodlcoin-config.h"
 #endif
 
 #ifdef WIN32

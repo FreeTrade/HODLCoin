@@ -1,0 +1,6 @@
+usr/local/bin/hodlcoin-qt usr/bin
+share/pixmaps/hodlcoin32.xpm usr/share/pixmaps
+share/pixmaps/hodlcoin16.xpm usr/share/pixmaps
+share/pixmaps/hodlcoin128.png usr/share/pixmaps
+debian/hodlcoin-qt.desktop usr/share/applications
+debian/hodlcoin-qt.protocol usr/share/kde4/services/

@@ -17,19 +17,19 @@ $(LIBLEVELDB) $(LIBMEMENV):
           OPT="$(CXXFLAGS) $(CPPFLAGS) -D__STDC_LIMIT_MACROS"
 endif
 
-BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
-BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
+HODLCOIN_CONFIG_INCLUDES=-I$(builddir)/config
+HODLCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS) $(CRYPTO_CFLAGS) $(SSL_CFLAGS)
 
-BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
+HODLCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 
-LIBBITCOIN_SERVER=libbitcoin_server.a
-LIBBITCOIN_WALLET=libbitcoin_wallet.a
-LIBBITCOIN_COMMON=libbitcoin_common.a
-LIBBITCOIN_CLI=libbitcoin_cli.a
-LIBBITCOIN_UTIL=libbitcoin_util.a
-LIBBITCOIN_CRYPTO=crypto/libbitcoin_crypto.a
-LIBBITCOIN_UNIVALUE=univalue/libbitcoin_univalue.a
-LIBBITCOINQT=qt/libbitcoinqt.a
+LIBHODLCOIN_SERVER=libhodlcoin_server.a
+LIBHODLCOIN_WALLET=libhodlcoin_wallet.a
+LIBHODLCOIN_COMMON=libhodlcoin_common.a
+LIBHODLCOIN_CLI=libhodlcoin_cli.a
+LIBHODLCOIN_UTIL=libhodlcoin_util.a
+LIBHODLCOIN_CRYPTO=crypto/libhodlcoin_crypto.a
+LIBHODLCOIN_UNIVALUE=univalue/libhodlcoin_univalue.a
+LIBHODLCOINQT=qt/libhodlcoinqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
@@ -38,38 +38,38 @@ $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
 # Make is not made aware of per-object dependencies to avoid limiting building parallelization
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES = \
-  crypto/libbitcoin_crypto.a \
-  libbitcoin_util.a \
-  libbitcoin_common.a \
-  univalue/libbitcoin_univalue.a \
-  libbitcoin_server.a \
-  libbitcoin_cli.a
+  crypto/libhodlcoin_crypto.a \
+  libhodlcoin_util.a \
+  libhodlcoin_common.a \
+  univalue/libhodlcoin_univalue.a \
+  libhodlcoin_server.a \
+  libhodlcoin_cli.a
 if ENABLE_WALLET
-BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
-EXTRA_LIBRARIES += libbitcoin_wallet.a
+HODLCOIN_INCLUDES += $(BDB_CPPFLAGS)
+EXTRA_LIBRARIES += libhodlcoin_wallet.a
 endif
 
-if BUILD_BITCOIN_LIBS
-lib_LTLIBRARIES = libbitcoinconsensus.la
-LIBBITCOIN_CONSENSUS=libbitcoinconsensus.la
+if BUILD_HODLCOIN_LIBS
+lib_LTLIBRARIES = libhodlcoinconsensus.la
+LIBHODLCOIN_CONSENSUS=libhodlcoinconsensus.la
 else
-LIBBITCOIN_CONSENSUS=
+LIBHODLCOIN_CONSENSUS=
 endif
 
 bin_PROGRAMS =
 TESTS =
 
-if BUILD_BITCOIND
-  bin_PROGRAMS += bitcoind
+if BUILD_HODLCOIND
+  bin_PROGRAMS += hodlcoind
 endif
 
-if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += bitcoin-cli bitcoin-tx
+if BUILD_HODLCOIN_UTILS
+  bin_PROGRAMS += hodlcoin-cli hodlcoin-tx
 endif
 
 .PHONY: FORCE
-# bitcoin core #
-BITCOIN_CORE_H = \
+# hodlcoin core #
+HODLCOIN_CORE_H = \
   addrman.h \
   alert.h \
   amount.h \
@@ -171,11 +171,11 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
+libhodlcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between bitcoind and bitcoin-qt
-libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS)
-libbitcoin_server_a_SOURCES = \
+# server: shared between hodlcoind and hodlcoin-qt
+libhodlcoin_server_a_CPPFLAGS = $(HODLCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS)
+libhodlcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   bloom.cpp \
@@ -204,12 +204,12 @@ libbitcoin_server_a_SOURCES = \
   txmempool.cpp \
   validationinterface.cpp \
   $(JSON_H) \
-  $(BITCOIN_CORE_H)
+  $(HODLCOIN_CORE_H)
 
-# wallet: shared between bitcoind and bitcoin-qt, but only linked
+# wallet: shared between hodlcoind and hodlcoin-qt, but only linked
 # when wallet enabled
-libbitcoin_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_wallet_a_SOURCES = \
+libhodlcoin_wallet_a_CPPFLAGS = $(HODLCOIN_INCLUDES)
+libhodlcoin_wallet_a_SOURCES = \
   wallet/crypter.cpp \
   wallet/db.cpp \
   wallet/rpcdump.cpp \
@@ -217,11 +217,11 @@ libbitcoin_wallet_a_SOURCES = \
   wallet/wallet.cpp \
   wallet/wallet_ismine.cpp \
   wallet/walletdb.cpp \
-  $(BITCOIN_CORE_H)
+  $(HODLCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libbitcoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES)
-crypto_libbitcoin_crypto_a_SOURCES = \
+crypto_libhodlcoin_crypto_a_CPPFLAGS = $(HODLCOIN_CONFIG_INCLUDES)
+crypto_libhodlcoin_crypto_a_SOURCES = \
   crypto/common.h \
   crypto/hmac_sha256.cpp \
   crypto/hmac_sha256.h \
@@ -237,16 +237,16 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha512.h
 
 # univalue JSON library
-univalue_libbitcoin_univalue_a_SOURCES = \
+univalue_libhodlcoin_univalue_a_SOURCES = \
   univalue/univalue.cpp \
   univalue/univalue.h \
   univalue/univalue_escapes.h \
   univalue/univalue_read.cpp \
   univalue/univalue_write.cpp
 
-# common: shared between bitcoind, and bitcoin-qt and non-server tools
-libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_common_a_SOURCES = \
+# common: shared between hodlcoind, and hodlcoin-qt and non-server tools
+libhodlcoin_common_a_CPPFLAGS = $(HODLCOIN_INCLUDES)
+libhodlcoin_common_a_SOURCES = \
   amount.cpp \
   arith_uint256.cpp \
   base58.cpp \
@@ -272,13 +272,13 @@ libbitcoin_common_a_SOURCES = \
   script/script_error.cpp \
   script/sign.cpp \
   script/standard.cpp \
-  $(BITCOIN_CORE_H)
+  $(HODLCOIN_CORE_H)
 
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libbitcoin_util_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_util_a_SOURCES = \
+libhodlcoin_util_a_CPPFLAGS = $(HODLCOIN_INCLUDES)
+libhodlcoin_util_a_SOURCES = \
   support/pagelocker.cpp \
   chainparamsbase.cpp \
   clientversion.cpp \
@@ -294,86 +294,86 @@ libbitcoin_util_a_SOURCES = \
   utilmoneystr.cpp \
   utilstrencodings.cpp \
   utiltime.cpp \
-  $(BITCOIN_CORE_H)
+  $(HODLCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
+libhodlcoin_util_a_SOURCES += compat/glibc_compat.cpp
 endif
 
-# cli: shared between bitcoin-cli and bitcoin-qt
-libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libbitcoin_cli_a_SOURCES = \
+# cli: shared between hodlcoin-cli and hodlcoin-qt
+libhodlcoin_cli_a_CPPFLAGS = $(HODLCOIN_INCLUDES)
+libhodlcoin_cli_a_SOURCES = \
   rpcclient.cpp \
-  $(BITCOIN_CORE_H)
+  $(HODLCOIN_CORE_H)
 
-nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libhodlcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# bitcoind binary #
-bitcoind_SOURCES = bitcoind.cpp
-bitcoind_CPPFLAGS = $(BITCOIN_INCLUDES)
-bitcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# hodlcoind binary #
+hodlcoind_SOURCES = hodlcoind.cpp
+hodlcoind_CPPFLAGS = $(HODLCOIN_INCLUDES)
+hodlcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoind_SOURCES += bitcoind-res.rc
+hodlcoind_SOURCES += hodlcoind-res.rc
 endif
 
-bitcoind_LDADD = \
-  $(LIBBITCOIN_SERVER) \
-  $(LIBBITCOIN_COMMON) \
-  $(LIBBITCOIN_UNIVALUE) \
-  $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO) \
+hodlcoind_LDADD = \
+  $(LIBHODLCOIN_SERVER) \
+  $(LIBHODLCOIN_COMMON) \
+  $(LIBHODLCOIN_UNIVALUE) \
+  $(LIBHODLCOIN_UTIL) \
+  $(LIBHODLCOIN_CRYPTO) \
   $(LIBLEVELDB) \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
 if ENABLE_WALLET
-bitcoind_LDADD += libbitcoin_wallet.a
+hodlcoind_LDADD += libhodlcoin_wallet.a
 endif
 
-bitcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
+hodlcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
 #
 
-# bitcoin-cli binary #
-bitcoin_cli_SOURCES = bitcoin-cli.cpp
-bitcoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
-bitcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# hodlcoin-cli binary #
+hodlcoin_cli_SOURCES = hodlcoin-cli.cpp
+hodlcoin_cli_CPPFLAGS = $(HODLCOIN_INCLUDES)
+hodlcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoin_cli_SOURCES += bitcoin-cli-res.rc
+hodlcoin_cli_SOURCES += hodlcoin-cli-res.rc
 endif
 
-bitcoin_cli_LDADD = \
-  $(LIBBITCOIN_CLI) \
-  $(LIBBITCOIN_UTIL)
+hodlcoin_cli_LDADD = \
+  $(LIBHODLCOIN_CLI) \
+  $(LIBHODLCOIN_UTIL)
 
-bitcoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS)
+hodlcoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS)
 #
 
-# bitcoin-tx binary #
-bitcoin_tx_SOURCES = bitcoin-tx.cpp
-bitcoin_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
-bitcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# hodlcoin-tx binary #
+hodlcoin_tx_SOURCES = hodlcoin-tx.cpp
+hodlcoin_tx_CPPFLAGS = $(HODLCOIN_INCLUDES)
+hodlcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcoin_tx_SOURCES += bitcoin-tx-res.rc
+hodlcoin_tx_SOURCES += hodlcoin-tx-res.rc
 endif
 
-bitcoin_tx_LDADD = \
-  $(LIBBITCOIN_UNIVALUE) \
-  $(LIBBITCOIN_COMMON) \
-  $(LIBBITCOIN_UTIL) \
-  $(LIBBITCOIN_CRYPTO) \
+hodlcoin_tx_LDADD = \
+  $(LIBHODLCOIN_UNIVALUE) \
+  $(LIBHODLCOIN_COMMON) \
+  $(LIBHODLCOIN_UTIL) \
+  $(LIBHODLCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-bitcoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+hodlcoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
-# bitcoinconsensus library #
-if BUILD_BITCOIN_LIBS
-include_HEADERS = script/bitcoinconsensus.h
-libbitcoinconsensus_la_SOURCES = \
+# hodlcoinconsensus library #
+if BUILD_HODLCOIN_LIBS
+include_HEADERS = script/hodlcoinconsensus.h
+libhodlcoinconsensus_la_SOURCES = \
   crypto/hmac_sha512.cpp \
   crypto/ripemd160.cpp \
   crypto/sha1.cpp \
@@ -384,19 +384,19 @@ libbitcoinconsensus_la_SOURCES = \
   hash.cpp \
   primitives/transaction.cpp \
   pubkey.cpp \
-  script/bitcoinconsensus.cpp \
+  script/hodlcoinconsensus.cpp \
   script/interpreter.cpp \
   script/script.cpp \
   uint256.cpp \
   utilstrencodings.cpp
 
 if GLIBC_BACK_COMPAT
-  libbitcoinconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libhodlcoinconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libbitcoinconsensus_la_LDFLAGS = -no-undefined $(RELDFLAGS)
-libbitcoinconsensus_la_LIBADD = $(CRYPTO_LIBS)
-libbitcoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) -I$(builddir)/obj -DBUILD_BITCOIN_INTERNAL
+libhodlcoinconsensus_la_LDFLAGS = -no-undefined $(RELDFLAGS)
+libhodlcoinconsensus_la_LIBADD = $(CRYPTO_LIBS)
+libhodlcoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) -I$(builddir)/obj -DBUILD_HODLCOIN_INTERNAL
 
 endif
 #

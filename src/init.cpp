@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2009-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include "config/hodlcoin-config.h"
 #endif
 
 #include "init.h"
@@ -150,13 +150,13 @@ void Shutdown()
     /// for example if the data directory was found to be locked.
     /// Be sure that anything that writes files or flushes caches only does this if the respective
     /// module was initialized.
-    RenameThread("bitcoin-shutoff");
+    RenameThread("hodlcoin-shutoff");
     mempool.AddTransactionsUpdated(1);
     StopRPCThreads();
 #ifdef ENABLE_WALLET
     if (pwalletMain)
         pwalletMain->Flush(false);
-    GenerateBitcoins(false, NULL, 0);
+    GenerateHODLCoins(false, NULL, 0);
 #endif
     StopNode();
     UnregisterNodeSignals(GetNodeSignals());
@@ -273,7 +273,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-checkblocks=<n>", strprintf(_("How many blocks to check at startup (default: %u, 0 = all)"), 288));
     strUsage += HelpMessageOpt("-checklevel=<n>", strprintf(_("How thorough the block verification of -checkblocks is (0-4, default: %u)"), 3));
     strUsage += HelpMessageOpt("-conf=<file>", strprintf(_("Specify configuration file (default: %s)"), "hodlcoin.conf"));
-    if (mode == HMM_BITCOIND)
+    if (mode == HMM_HODLCOIND)
     {
 #if !defined(WIN32)
         strUsage += HelpMessageOpt("-daemon", _("Run in the background as a daemon and accept commands"));
@@ -286,7 +286,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-par=<n>", strprintf(_("Set the number of script verification threads (%u to %d, 0 = auto, <0 = leave that many cores free, default: %d)"),
         -(int)boost::thread::hardware_concurrency(), MAX_SCRIPTCHECK_THREADS, DEFAULT_SCRIPTCHECK_THREADS));
 #ifndef WIN32
-    strUsage += HelpMessageOpt("-pid=<file>", strprintf(_("Specify pid file (default: %s)"), "bitcoind.pid"));
+    strUsage += HelpMessageOpt("-pid=<file>", strprintf(_("Specify pid file (default: %s)"), "hodlcoind.pid"));
 #endif
     strUsage += HelpMessageOpt("-prune=<n>", strprintf(_("Reduce storage requirements by pruning (deleting) old blocks. This mode disables wallet support and is incompatible with -txindex. "
             "Warning: Reverting this setting requires re-downloading the entire blockchain. "
@@ -369,7 +369,7 @@ std::string HelpMessage(HelpMessageMode mode)
         strUsage += HelpMessageOpt("-stopafterblockimport", strprintf("Stop running after importing blocks from disk (default: %u)", 0));
     }
     string debugCategories = "addrman, alert, bench, coindb, db, lock, rand, rpc, selectcoins, mempool, net, proxy, prune"; // Don't translate these and qt below
-    if (mode == HMM_BITCOIN_QT)
+    if (mode == HMM_HODLCOIN_QT)
         debugCategories += ", qt";
     strUsage += HelpMessageOpt("-debug=<category>", strprintf(_("Output debugging information (default: %u, supplying <category> is optional)"), 0) + ". " +
         _("If <category> is not supplied, output all debugging information.") + _("<category> can be:") + " " + debugCategories + ".");
@@ -424,7 +424,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-rpcsslprivatekeyfile=<file.pem>", strprintf(_("Server private key (default: %s)"), "server.pem"));
     strUsage += HelpMessageOpt("-rpcsslciphers=<ciphers>", strprintf(_("Acceptable ciphers (default: %s)"), "TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH"));
 
-    if (mode == HMM_BITCOIN_QT)
+    if (mode == HMM_HODLCOIN_QT)
     {
         strUsage += HelpMessageGroup(_("UI Options:"));
         if (showDebug) {
@@ -442,7 +442,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    return FormatParagraph(strprintf(_("Copyright (C) 2009-%i The Bitcoin Core Developers"), COPYRIGHT_YEAR)) + "\n" +
+    return FormatParagraph(strprintf(_("Copyright (C) 2009-%i The HODLCoin Core Developers"), COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(_("This is experimental software.")) + "\n" +
            "\n" +
@@ -518,7 +518,7 @@ void CleanupBlockRevFiles()
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
-    RenameThread("bitcoin-loadblk");
+    RenameThread("hodlcoin-loadblk");
     // -reindex
     if (fReindex) {
         CImportingNow imp;
@@ -575,14 +575,14 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 }
 
 /** Sanity checks
- *  Ensure that Bitcoin is running in a usable environment with all
+ *  Ensure that HODLCoin is running in a usable environment with all
  *  necessary library support.
  */
 bool InitSanityCheck(void)
 {
     if(!ECC_InitSanityCheck()) {
         InitError("OpenSSL appears to lack support for elliptic curve cryptography. For more "
-                  "information, visit https://en.bitcoin.it/wiki/OpenSSL_and_EC_Libraries");
+                  "information, visit https://en.hodlcoin.it/wiki/OpenSSL_and_EC_Libraries");
         return false;
     }
     if (!glibc_sanity_test() || !glibcxx_sanity_test())
@@ -591,7 +591,7 @@ bool InitSanityCheck(void)
     return true;
 }
 
-/** Initialize bitcoin.
+/** Initialize hodlcoin.
  *  @pre Parameters should be parsed and config file should be read.
  */
 bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
@@ -885,7 +885,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     // Sanity check
     if (!InitSanityCheck())
-        return InitError(_("Initialization sanity check failed. Bitcoin Core is shutting down."));
+        return InitError(_("Initialization sanity check failed. HODLCoin Core is shutting down."));
 
     std::string strDataDir = GetDataDir().string();
 #ifdef ENABLE_WALLET
@@ -893,7 +893,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     if (strWalletFile != boost::filesystem::basename(strWalletFile) + boost::filesystem::extension(strWalletFile))
         return InitError(strprintf(_("Wallet %s resides outside data directory %s"), strWalletFile, strDataDir));
 #endif
-    // Make sure only a single Bitcoin process is using the data directory.
+    // Make sure only a single HODLCoin process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
@@ -1480,7 +1480,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 #ifdef ENABLE_WALLET
     // Generate coins in the background
     if (pwalletMain)
-        GenerateBitcoins(GetBoolArg("-gen", false), pwalletMain, GetArg("-genproclimit", -1));
+        GenerateHODLCoins(GetBoolArg("-gen", false), pwalletMain, GetArg("-genproclimit", -1));
 #endif
 
     // ********************************************************* Step 11: finished

@@ -1,9 +1,9 @@
-// Copyright (c) 2014 The Bitcoin developers
+// Copyright (c) 2014 The HODLCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_SCICON_H
-#define BITCOIN_QT_SCICON_H
+#ifndef HODLCOIN_QT_SCICON_H
+#define HODLCOIN_QT_SCICON_H
 
 #include <QtCore>
 
@@ -21,4 +21,4 @@ QIcon SingleColorIcon(const QString& filename);
 QIcon TextColorIcon(const QIcon&);
 QIcon TextColorIcon(const QString& filename);
 
-#endif // BITCOIN_QT_SCICON_H
+#endif // HODLCOIN_QT_SCICON_H

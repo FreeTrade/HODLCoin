@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=HODLCoin
+Comment=HODLCoin P2P Cryptocurrency
+Comment[fr]=HODLCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=HODLCoin, eşten eşe kriptografik sanal para birimi
+Exec=hodlcoin-qt %u
+Terminal=false
+Type=Application
+Icon=hodlcoin128
+MimeType=x-scheme-handler/hodlcoin;
+Categories=Office;Finance;

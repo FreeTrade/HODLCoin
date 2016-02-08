@@ -1,13 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2009-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 /**
  * Utilities for converting data from/to strings.
  */
-#ifndef BITCOIN_UTILSTRENCODINGS_H
-#define BITCOIN_UTILSTRENCODINGS_H
+#ifndef HODLCOIN_UTILSTRENCODINGS_H
+#define HODLCOIN_UTILSTRENCODINGS_H
 
 #include <stdint.h>
 #include <string>
@@ -95,4 +95,4 @@ bool TimingResistantEqual(const T& a, const T& b)
     return accumulator == 0;
 }
 
-#endif // BITCOIN_UTILSTRENCODINGS_H
+#endif // HODLCOIN_UTILSTRENCODINGS_H

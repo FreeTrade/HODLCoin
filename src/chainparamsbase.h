@@ -1,16 +1,16 @@
-// Copyright (c) 2014 The Bitcoin Core developers
+// Copyright (c) 2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CHAINPARAMSBASE_H
-#define BITCOIN_CHAINPARAMSBASE_H
+#ifndef HODLCOIN_CHAINPARAMSBASE_H
+#define HODLCOIN_CHAINPARAMSBASE_H
 
 #include <string>
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between bitcoin-cli and bitcoind)
- * of a given instance of the Bitcoin system.
+ * CBaseChainParams defines the base parameters (shared between hodlcoin-cli and hodlcoind)
+ * of a given instance of the HODLCoin system.
  */
 class CBaseChainParams
 {
@@ -60,4 +60,4 @@ bool SelectBaseParamsFromCommandLine();
  */
 bool AreBaseParamsConfigured();
 
-#endif // BITCOIN_CHAINPARAMSBASE_H
+#endif // HODLCOIN_CHAINPARAMSBASE_H

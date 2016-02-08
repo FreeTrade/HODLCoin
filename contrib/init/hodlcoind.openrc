@@ -1,0 +1,88 @@
+#!/sbin/runscript
+
+# backward compatibility for existing gentoo layout 
+#
+if [ -d "/var/lib/hodlcoin/.hodlcoin" ]; then
+	HODLCOIND_DEFAULT_DATADIR="/var/lib/hodlcoin/.hodlcoin"
+else
+	HODLCOIND_DEFAULT_DATADIR="/var/lib/hodlcoind"
+fi
+
+HODLCOIND_CONFIGFILE=${HODLCOIND_CONFIGFILE:-/etc/hodlcoin/hodlcoin.conf}
+HODLCOIND_PIDDIR=${HODLCOIND_PIDDIR:-/var/run/hodlcoind}
+HODLCOIND_PIDFILE=${HODLCOIND_PIDFILE:-${HODLCOIND_PIDDIR}/hodlcoind.pid}
+HODLCOIND_DATADIR=${HODLCOIND_DATADIR:-${HODLCOIND_DEFAULT_DATADIR}}
+HODLCOIND_USER=${HODLCOIND_USER:-${HODLCOIN_USER:-hodlcoin}}
+HODLCOIND_GROUP=${HODLCOIND_GROUP:-hodlcoin}
+HODLCOIND_BIN=${HODLCOIND_BIN:-/usr/bin/hodlcoind}
+HODLCOIND_NICE=${HODLCOIND_NICE:-${NICELEVEL:-0}}
+HODLCOIND_OPTS="${HODLCOIND_OPTS:-${HODLCOIN_OPTS}}"
+
+name="HODLCoin Core Daemon"
+description="HODLCoin cryptocurrency P2P network daemon"
+
+command="/usr/bin/hodlcoind"
+command_args="-pid=\"${HODLCOIND_PIDFILE}\" \
+		-conf=\"${HODLCOIND_CONFIGFILE}\" \
+		-datadir=\"${HODLCOIND_DATADIR}\" \
+		-daemon \
+		${HODLCOIND_OPTS}"
+
+required_files="${HODLCOIND_CONFIGFILE}"
+start_stop_daemon_args="-u ${HODLCOIND_USER} \
+			-N ${HODLCOIND_NICE} -w 2000"
+pidfile="${HODLCOIND_PIDFILE}"
+retry=60
+
+depend() {
+	need localmount net
+}
+
+# verify
+# 1) that the datadir exists and is writable (or create it)
+# 2) that a directory for the pid exists and is writable
+# 3) ownership and permissions on the config file
+start_pre() {
+	checkpath \
+	-d \
+	--mode 0750 \
+	--owner "${HODLCOIND_USER}:${HODLCOIND_GROUP}" \
+	"${HODLCOIND_DATADIR}"
+
+	checkpath \
+	-d \
+	--mode 0755 \
+	--owner "${HODLCOIND_USER}:${HODLCOIND_GROUP}" \
+	"${HODLCOIND_PIDDIR}"
+
+	checkpath -f \
+	-o ${HODLCOIND_USER}:${HODLCOIND_GROUP} \
+	-m 0660 \
+	${HODLCOIND_CONFIGFILE}
+
+	checkconfig || return 1
+}
+
+checkconfig()
+{
+	if ! grep -qs '^rpcpassword=' "${HODLCOIND_CONFIGFILE}" ; then
+		eerror ""
+		eerror "ERROR: You must set a secure rpcpassword to run hodlcoind."
+		eerror "The setting must appear in ${HODLCOIND_CONFIGFILE}"
+		eerror ""
+		eerror "This password is security critical to securing wallets "
+		eerror "and must not be the same as the rpcuser setting."
+		eerror "You can generate a suitable random password using the following"
+		eerror "command from the shell:"
+		eerror ""
+		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
+		eerror ""
+		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "notified of problems:"
+		eerror ""
+		eerror "ie: alertnotify=echo %%s | mail -s \"HODLCoin Alert\"" \
+			"admin@foo.com"
+		eerror ""
+		return 1
+	fi
+}

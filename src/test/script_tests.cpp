@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2011-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,10 +13,10 @@
 #include "script/script_error.h"
 #include "script/sign.h"
 #include "util.h"
-#include "test/test_bitcoin.h"
+#include "test/test_hodlcoin.h"
 
 #if defined(HAVE_CONSENSUS_LIB)
-#include "script/bitcoinconsensus.h"
+#include "script/hodlcoinconsensus.h"
 #endif
 
 #include <fstream>
@@ -99,7 +99,7 @@ void DoTest(const CScript& scriptPubKey, const CScript& scriptSig, int flags, bo
 #if defined(HAVE_CONSENSUS_LIB)
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
     stream << tx2;
-    BOOST_CHECK_MESSAGE(bitcoinconsensus_verify_script(begin_ptr(scriptPubKey), scriptPubKey.size(), (const unsigned char*)&stream[0], stream.size(), 0, flags, NULL) == expect,message);
+    BOOST_CHECK_MESSAGE(hodlcoinconsensus_verify_script(begin_ptr(scriptPubKey), scriptPubKey.size(), (const unsigned char*)&stream[0], stream.size(), 0, flags, NULL) == expect,message);
 #endif
 }
 

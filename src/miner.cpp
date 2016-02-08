@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2009-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -30,7 +30,7 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// BitcoinMiner
+// HODLCoinMiner
 //
 
 //
@@ -423,8 +423,8 @@ CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey)
 
 CBlockTemplate* CreateNewBlockWithAddress(std::string address)
 {
-    CScript scriptPubKey = GetScriptForDestination(CBitcoinAddress(address).Get());
-            //CScript() << ToByteVector(CBitcoinAddress(address).Get()) << OP_CHECKSIG;
+    CScript scriptPubKey = GetScriptForDestination(CHODLCoinAddress(address).Get());
+            //CScript() << ToByteVector(CHODLCoinAddress(address).Get()) << OP_CHECKSIG;
     return CreateNewBlock(scriptPubKey);
 }
 
@@ -469,7 +469,7 @@ vector<string> split(string str, string sep){
     return arr;
 }
 
-void static BitcoinMiner(CWallet *pwallet, int nThreads)
+void static HODLCoinMiner(CWallet *pwallet, int nThreads)
 {    
     LogPrintf("HOdlcoinMiner started\n");
     srand(clock());
@@ -477,7 +477,7 @@ void static BitcoinMiner(CWallet *pwallet, int nThreads)
     std::vector<std::string> arr=split(ma+"",";");
 
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("bitcoin-miner");
+    RenameThread("hodlcoin-miner");
     const CChainParams& chainparams = Params();
 
     // Each thread has its own key and counter
@@ -608,7 +608,7 @@ void static BitcoinMiner(CWallet *pwallet, int nThreads)
 static bool isInterrupting=false;
 static boost::thread_group* minerThreads = NULL;
 
-void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
+void GenerateHODLCoins(bool fGenerate, CWallet* pwallet, int nThreads)
 {
     if(isInterrupting){
         return;
@@ -637,7 +637,7 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
         return;
 
     minerThreads = new boost::thread_group();
-    minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet, nThreads));
+    minerThreads->create_thread(boost::bind(&HODLCoinMiner, pwallet, nThreads));
 }
 
 #endif // ENABLE_WALLET

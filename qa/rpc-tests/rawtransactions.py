@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Copyright (c) 2014 The Bitcoin Core developers
+# Copyright (c) 2014 The HODLCoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,13 +8,13 @@
 # that spend (directly or indirectly) coinbase transactions.
 #
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import HODLCoinTestFramework
 from test_framework.util import *
 from pprint import pprint
 from time import sleep
 
 # Create one-input, one-output, no-fee transaction:
-class RawTransactionsTest(BitcoinTestFramework):
+class RawTransactionsTest(HODLCoinTestFramework):
 
     def setup_chain(self):
         print("Initializing test directory "+self.options.tmpdir)
@@ -24,7 +24,7 @@ class RawTransactionsTest(BitcoinTestFramework):
         self.nodes = start_nodes(3, self.options.tmpdir)
 
         #connect to a local machine for debugging
-        #url = "http://bitcoinrpc:DP6DvqZtqXarpeNWyN3LZTFchCCyCUuHwNF7E8pX99x1@%s:%d" % ('127.0.0.1', 18332)
+        #url = "http://hodlcoinrpc:DP6DvqZtqXarpeNWyN3LZTFchCCyCUuHwNF7E8pX99x1@%s:%d" % ('127.0.0.1', 18332)
         #proxy = AuthServiceProxy(url)
         #proxy.url = url # store URL on proxy for info
         #self.nodes.append(proxy)

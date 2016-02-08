@@ -1,6 +1,6 @@
 #!/bin/bash
 
-###   This script attempts to download the signature file SHA256SUMS.asc from bitcoin.org
+###   This script attempts to download the signature file SHA256SUMS.asc from hodlcoin.org
 ###   It first checks if the signature passes, and then downloads the files specified in
 ###   the file, and checks if the hashes of these files match those that are specified
 ###   in the signature file.
@@ -14,16 +14,16 @@ function clean_up {
    done
 }
 
-WORKINGDIR="/tmp/bitcoin"
+WORKINGDIR="/tmp/hodlcoin"
 TMPFILE="hashes.tmp"
 
 #this URL is used if a version number is not specified as an argument to the script
-SIGNATUREFILE="https://bitcoin.org/bin/0.9.2.1/SHA256SUMS.asc"
+SIGNATUREFILE="https://hodlcoin.org/bin/0.9.2.1/SHA256SUMS.asc"
 
 SIGNATUREFILENAME="SHA256SUMS.asc"
 RCSUBDIR="test/"
-BASEDIR="https://bitcoin.org/bin/"
-VERSIONPREFIX="bitcoin-"
+BASEDIR="https://hodlcoin.org/bin/"
+VERSIONPREFIX="hodlcoin-"
 RCVERSIONSTRING="rc"
 
 if [ ! -d "$WORKINGDIR" ]; then
@@ -34,7 +34,7 @@ cd "$WORKINGDIR"
 
 #test if a version number has been passed as an argument
 if [ -n "$1" ]; then
-   #let's also check if the version number includes the prefix 'bitcoin-',
+   #let's also check if the version number includes the prefix 'hodlcoin-',
    #  and add this prefix if it doesn't
    if [[ $1 == "$VERSIONPREFIX"* ]]; then
       VERSION="$1"
@@ -62,7 +62,7 @@ WGETOUT=$(wget -N "$BASEDIR$SIGNATUREFILENAME" 2>&1)
 #and then see if wget completed successfully
 if [ $? -ne 0 ]; then
    echo "Error: couldn't fetch signature file. Have you specified the version number in the following format?"
-   echo "[bitcoin-]<version>-[rc[0-9]] (example: bitcoin-0.9.2-rc1)"
+   echo "[hodlcoin-]<version>-[rc[0-9]] (example: hodlcoin-0.9.2-rc1)"
    echo "wget output:"
    echo "$WGETOUT"|sed 's/^/\t/g'
    exit 2
