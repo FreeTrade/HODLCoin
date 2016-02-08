@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2011-2013 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_TRANSACTIONVIEW_H
-#define BITCOIN_QT_TRANSACTIONVIEW_H
+#ifndef HODLCOIN_QT_TRANSACTIONVIEW_H
+#define HODLCOIN_QT_TRANSACTIONVIEW_H
 
 #include "guiutil.h"
 
@@ -112,4 +112,4 @@ public Q_SLOTS:
 
 };
 
-#endif // BITCOIN_QT_TRANSACTIONVIEW_H
+#endif // HODLCOIN_QT_TRANSACTIONVIEW_H

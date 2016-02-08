@@ -1,79 +1,79 @@
-bin_PROGRAMS += qt/bitcoin-qt
-EXTRA_LIBRARIES += qt/libbitcoinqt.a
+bin_PROGRAMS += qt/hodlcoin-qt
+EXTRA_LIBRARIES += qt/libhodlcoinqt.a
 
-# bitcoin qt core #
+# hodlcoin qt core #
 QT_TS = \
-  qt/locale/bitcoin_ach.ts \
-  qt/locale/bitcoin_af_ZA.ts \
-  qt/locale/bitcoin_ar.ts \
-  qt/locale/bitcoin_be_BY.ts \
-  qt/locale/bitcoin_bg.ts \
-  qt/locale/bitcoin_bs.ts \
-  qt/locale/bitcoin_ca_ES.ts \
-  qt/locale/bitcoin_ca.ts \
-  qt/locale/bitcoin_ca@valencia.ts \
-  qt/locale/bitcoin_cmn.ts \
-  qt/locale/bitcoin_cs.ts \
-  qt/locale/bitcoin_cy.ts \
-  qt/locale/bitcoin_da.ts \
-  qt/locale/bitcoin_de.ts \
-  qt/locale/bitcoin_el_GR.ts \
-  qt/locale/bitcoin_en.ts \
-  qt/locale/bitcoin_eo.ts \
-  qt/locale/bitcoin_es_CL.ts \
-  qt/locale/bitcoin_es_DO.ts \
-  qt/locale/bitcoin_es_MX.ts \
-  qt/locale/bitcoin_es.ts \
-  qt/locale/bitcoin_es_UY.ts \
-  qt/locale/bitcoin_et.ts \
-  qt/locale/bitcoin_eu_ES.ts \
-  qt/locale/bitcoin_fa_IR.ts \
-  qt/locale/bitcoin_fa.ts \
-  qt/locale/bitcoin_fi.ts \
-  qt/locale/bitcoin_fr_CA.ts \
-  qt/locale/bitcoin_fr.ts \
-  qt/locale/bitcoin_gl.ts \
-  qt/locale/bitcoin_gu_IN.ts \
-  qt/locale/bitcoin_he.ts \
-  qt/locale/bitcoin_hi_IN.ts \
-  qt/locale/bitcoin_hr.ts \
-  qt/locale/bitcoin_hu.ts \
-  qt/locale/bitcoin_id_ID.ts \
-  qt/locale/bitcoin_it.ts \
-  qt/locale/bitcoin_ja.ts \
-  qt/locale/bitcoin_ka.ts \
-  qt/locale/bitcoin_kk_KZ.ts \
-  qt/locale/bitcoin_ko_KR.ts \
-  qt/locale/bitcoin_ky.ts \
-  qt/locale/bitcoin_la.ts \
-  qt/locale/bitcoin_lt.ts \
-  qt/locale/bitcoin_lv_LV.ts \
-  qt/locale/bitcoin_mn.ts \
-  qt/locale/bitcoin_ms_MY.ts \
-  qt/locale/bitcoin_nb.ts \
-  qt/locale/bitcoin_nl.ts \
-  qt/locale/bitcoin_pam.ts \
-  qt/locale/bitcoin_pl.ts \
-  qt/locale/bitcoin_pt_BR.ts \
-  qt/locale/bitcoin_pt_PT.ts \
-  qt/locale/bitcoin_ro_RO.ts \
-  qt/locale/bitcoin_ru.ts \
-  qt/locale/bitcoin_sah.ts \
-  qt/locale/bitcoin_sk.ts \
-  qt/locale/bitcoin_sl_SI.ts \
-  qt/locale/bitcoin_sq.ts \
-  qt/locale/bitcoin_sr.ts \
-  qt/locale/bitcoin_sv.ts \
-  qt/locale/bitcoin_th_TH.ts \
-  qt/locale/bitcoin_tr.ts \
-  qt/locale/bitcoin_uk.ts \
-  qt/locale/bitcoin_ur_PK.ts \
-  qt/locale/bitcoin_uz@Cyrl.ts \
-  qt/locale/bitcoin_vi.ts \
-  qt/locale/bitcoin_vi_VN.ts \
-  qt/locale/bitcoin_zh_CN.ts \
-  qt/locale/bitcoin_zh_HK.ts \
-  qt/locale/bitcoin_zh_TW.ts
+  qt/locale/hodlcoin_ach.ts \
+  qt/locale/hodlcoin_af_ZA.ts \
+  qt/locale/hodlcoin_ar.ts \
+  qt/locale/hodlcoin_be_BY.ts \
+  qt/locale/hodlcoin_bg.ts \
+  qt/locale/hodlcoin_bs.ts \
+  qt/locale/hodlcoin_ca_ES.ts \
+  qt/locale/hodlcoin_ca.ts \
+  qt/locale/hodlcoin_ca@valencia.ts \
+  qt/locale/hodlcoin_cmn.ts \
+  qt/locale/hodlcoin_cs.ts \
+  qt/locale/hodlcoin_cy.ts \
+  qt/locale/hodlcoin_da.ts \
+  qt/locale/hodlcoin_de.ts \
+  qt/locale/hodlcoin_el_GR.ts \
+  qt/locale/hodlcoin_en.ts \
+  qt/locale/hodlcoin_eo.ts \
+  qt/locale/hodlcoin_es_CL.ts \
+  qt/locale/hodlcoin_es_DO.ts \
+  qt/locale/hodlcoin_es_MX.ts \
+  qt/locale/hodlcoin_es.ts \
+  qt/locale/hodlcoin_es_UY.ts \
+  qt/locale/hodlcoin_et.ts \
+  qt/locale/hodlcoin_eu_ES.ts \
+  qt/locale/hodlcoin_fa_IR.ts \
+  qt/locale/hodlcoin_fa.ts \
+  qt/locale/hodlcoin_fi.ts \
+  qt/locale/hodlcoin_fr_CA.ts \
+  qt/locale/hodlcoin_fr.ts \
+  qt/locale/hodlcoin_gl.ts \
+  qt/locale/hodlcoin_gu_IN.ts \
+  qt/locale/hodlcoin_he.ts \
+  qt/locale/hodlcoin_hi_IN.ts \
+  qt/locale/hodlcoin_hr.ts \
+  qt/locale/hodlcoin_hu.ts \
+  qt/locale/hodlcoin_id_ID.ts \
+  qt/locale/hodlcoin_it.ts \
+  qt/locale/hodlcoin_ja.ts \
+  qt/locale/hodlcoin_ka.ts \
+  qt/locale/hodlcoin_kk_KZ.ts \
+  qt/locale/hodlcoin_ko_KR.ts \
+  qt/locale/hodlcoin_ky.ts \
+  qt/locale/hodlcoin_la.ts \
+  qt/locale/hodlcoin_lt.ts \
+  qt/locale/hodlcoin_lv_LV.ts \
+  qt/locale/hodlcoin_mn.ts \
+  qt/locale/hodlcoin_ms_MY.ts \
+  qt/locale/hodlcoin_nb.ts \
+  qt/locale/hodlcoin_nl.ts \
+  qt/locale/hodlcoin_pam.ts \
+  qt/locale/hodlcoin_pl.ts \
+  qt/locale/hodlcoin_pt_BR.ts \
+  qt/locale/hodlcoin_pt_PT.ts \
+  qt/locale/hodlcoin_ro_RO.ts \
+  qt/locale/hodlcoin_ru.ts \
+  qt/locale/hodlcoin_sah.ts \
+  qt/locale/hodlcoin_sk.ts \
+  qt/locale/hodlcoin_sl_SI.ts \
+  qt/locale/hodlcoin_sq.ts \
+  qt/locale/hodlcoin_sr.ts \
+  qt/locale/hodlcoin_sv.ts \
+  qt/locale/hodlcoin_th_TH.ts \
+  qt/locale/hodlcoin_tr.ts \
+  qt/locale/hodlcoin_uk.ts \
+  qt/locale/hodlcoin_ur_PK.ts \
+  qt/locale/hodlcoin_uz@Cyrl.ts \
+  qt/locale/hodlcoin_vi.ts \
+  qt/locale/hodlcoin_vi_VN.ts \
+  qt/locale/hodlcoin_zh_CN.ts \
+  qt/locale/hodlcoin_zh_HK.ts \
+  qt/locale/hodlcoin_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -97,10 +97,10 @@ QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
   qt/moc_addresstablemodel.cpp \
   qt/moc_askpassphrasedialog.cpp \
-  qt/moc_bitcoinaddressvalidator.cpp \
-  qt/moc_bitcoinamountfield.cpp \
-  qt/moc_bitcoingui.cpp \
-  qt/moc_bitcoinunits.cpp \
+  qt/moc_hodlcoinaddressvalidator.cpp \
+  qt/moc_hodlcoinamountfield.cpp \
+  qt/moc_hodlcoingui.cpp \
+  qt/moc_hodlcoinunits.cpp \
   qt/moc_clientmodel.cpp \
   qt/moc_coincontroldialog.cpp \
   qt/moc_coincontroltreewidget.cpp \
@@ -138,34 +138,34 @@ QT_MOC_CPP = \
   qt/moc_walletmodel.cpp \
   qt/moc_walletview.cpp
 
-BITCOIN_MM = \
+HODLCOIN_MM = \
   qt/macdockiconhandler.mm \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/bitcoin.moc \
-  qt/bitcoinamountfield.moc \
+  qt/hodlcoin.moc \
+  qt/hodlcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_bitcoin.cpp
-QT_QRC = qt/bitcoin.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_bitcoin_locale.cpp
-QT_QRC_LOCALE = qt/bitcoin_locale.qrc
+QT_QRC_CPP = qt/qrc_hodlcoin.cpp
+QT_QRC = qt/hodlcoin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_hodlcoin_locale.cpp
+QT_QRC_LOCALE = qt/hodlcoin_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
 PROTOBUF_PROTO = qt/paymentrequest.proto
 
-BITCOIN_QT_H = \
+HODLCOIN_QT_H = \
   qt/addressbookpage.h \
   qt/addresstablemodel.h \
   qt/askpassphrasedialog.h \
-  qt/bitcoinaddressvalidator.h \
-  qt/bitcoinamountfield.h \
-  qt/bitcoingui.h \
-  qt/bitcoinunits.h \
+  qt/hodlcoinaddressvalidator.h \
+  qt/hodlcoinamountfield.h \
+  qt/hodlcoingui.h \
+  qt/hodlcoinunits.h \
   qt/clientmodel.h \
   qt/coincontroldialog.h \
   qt/coincontroltreewidget.h \
@@ -215,8 +215,8 @@ RES_ICONS = \
   qt/res/icons/address-book.png \
   qt/res/icons/about.png \
   qt/res/icons/about_qt.png \
-  qt/res/icons/bitcoin.ico \
-  qt/res/icons/bitcoin.png \
+  qt/res/icons/hodlcoin.ico \
+  qt/res/icons/hodlcoin.png \
   qt/res/icons/clock1.png \
   qt/res/icons/clock2.png \
   qt/res/icons/clock3.png \
@@ -259,11 +259,11 @@ RES_ICONS = \
   qt/res/icons/warning.png \
   qt/res/icons/verify.png
 
-BITCOIN_QT_CPP = \
-  qt/bitcoinaddressvalidator.cpp \
-  qt/bitcoinamountfield.cpp \
-  qt/bitcoingui.cpp \
-  qt/bitcoinunits.cpp \
+HODLCOIN_QT_CPP = \
+  qt/hodlcoinaddressvalidator.cpp \
+  qt/hodlcoinamountfield.cpp \
+  qt/hodlcoingui.cpp \
+  qt/hodlcoinunits.cpp \
   qt/clientmodel.cpp \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
@@ -282,11 +282,11 @@ BITCOIN_QT_CPP = \
   qt/utilitydialog.cpp
 
 if TARGET_WINDOWS
-BITCOIN_QT_CPP += qt/winshutdownmonitor.cpp
+HODLCOIN_QT_CPP += qt/winshutdownmonitor.cpp
 endif
 
 if ENABLE_WALLET
-BITCOIN_QT_CPP += \
+HODLCOIN_QT_CPP += \
   qt/addressbookpage.cpp \
   qt/addresstablemodel.cpp \
   qt/askpassphrasedialog.cpp \
@@ -319,18 +319,18 @@ RES_IMAGES =
 
 RES_MOVIES = $(wildcard qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/bitcoin-qt-res.rc
+HODLCOIN_RC = qt/res/hodlcoin-qt-res.rc
 
-BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+HODLCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
 
-qt_libbitcoinqt_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+qt_libhodlcoinqt_a_CPPFLAGS = $(HODLCOIN_INCLUDES) $(HODLCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 
-qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+qt_libhodlcoinqt_a_SOURCES = $(HODLCOIN_QT_CPP) $(HODLCOIN_QT_H) $(QT_FORMS_UI) \
   $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES)
 
-nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+nodist_qt_libhodlcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
   $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
 
 # forms/foo.h -> forms/ui_foo.h
@@ -339,65 +339,65 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_bitcoin_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libhodlcoinqt_a_OBJECTS) $(qt_hodlcoin_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# bitcoin-qt binary #
-qt_bitcoin_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+# hodlcoin-qt binary #
+qt_hodlcoin_qt_CPPFLAGS = $(HODLCOIN_INCLUDES) $(HODLCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 
-qt_bitcoin_qt_SOURCES = qt/bitcoin.cpp
+qt_hodlcoin_qt_SOURCES = qt/hodlcoin.cpp
 if TARGET_DARWIN
-  qt_bitcoin_qt_SOURCES += $(BITCOIN_MM)
+  qt_hodlcoin_qt_SOURCES += $(HODLCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_bitcoin_qt_SOURCES += $(BITCOIN_RC)
+  qt_hodlcoin_qt_SOURCES += $(HODLCOIN_RC)
 endif
-qt_bitcoin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_hodlcoin_qt_LDADD = qt/libhodlcoinqt.a $(LIBHODLCOIN_SERVER)
 if ENABLE_WALLET
-qt_bitcoin_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_hodlcoin_qt_LDADD += $(LIBHODLCOIN_WALLET)
 endif
-qt_bitcoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBBITCOIN_UNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_hodlcoin_qt_LDADD += $(LIBHODLCOIN_CLI) $(LIBHODLCOIN_COMMON) $(LIBHODLCOIN_UTIL) $(LIBHODLCOIN_CRYPTO) $(LIBHODLCOIN_UNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1)
-qt_bitcoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_bitcoin_qt_LIBTOOLFLAGS = --tag CXX
+qt_hodlcoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_hodlcoin_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-qt/bitcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES)
+qt/hodlcoinstrings.cpp: $(libhodlcoin_server_a_SOURCES) $(libhodlcoin_wallet_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) ../share/qt/extract_strings_qt.py $^
 
-translate: qt/bitcoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: qt/hodlcoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(HODLCOIN_QT_CPP) $(HODLCOIN_QT_H) $(HODLCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/bitcoin_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/hodlcoin_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@test -f $(@D)/$(<F) || cp -f $< $(@D)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name bitcoin_locale $(@D)/$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name hodlcoin_locale $(@D)/$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name bitcoin $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name hodlcoin $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
-CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
+CLEAN_QT = $(nodist_qt_libhodlcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
 
 CLEANFILES += $(CLEAN_QT)
 
-bitcoin_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_bitcoin_qt_OBJECTS) qt/bitcoin-qt$(EXEEXT) $(LIBBITCOINQT)
+hodlcoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libhodlcoinqt_a_OBJECTS) $(qt_hodlcoin_qt_OBJECTS) qt/hodlcoin-qt$(EXEEXT) $(LIBHODLCOINQT)
 
-bitcoin_qt : qt/bitcoin-qt$(EXEEXT)
+hodlcoin_qt : qt/hodlcoin-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# Copyright (c) 2014 The Bitcoin Core developers
+# Copyright (c) 2014 The HODLCoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,13 +7,13 @@
 # Test proper accounting with malleable transactions
 #
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import HODLCoinTestFramework
 from test_framework.util import *
 from decimal import Decimal
 import os
 import shutil
 
-class TxnMallTest(BitcoinTestFramework):
+class TxnMallTest(HODLCoinTestFramework):
 
     def add_options(self, parser):
         parser.add_option("--mineblock", dest="mine_block", default=False, action="store_true",

@@ -1,10 +1,10 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Copyright (c) 2009-2014 The HODLCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_RPCSERVER_H
-#define BITCOIN_RPCSERVER_H
+#ifndef HODLCOIN_RPCSERVER_H
+#define HODLCOIN_RPCSERVER_H
 
 #include "amount.h"
 #include "rpcprotocol.h"
@@ -101,7 +101,7 @@ public:
 };
 
 /**
- * Bitcoin RPC command dispatcher.
+ * HODLCoin RPC command dispatcher.
  */
 class CRPCTable
 {
@@ -243,4 +243,4 @@ extern bool HTTPReq_REST(AcceptedConnection *conn,
                   const std::map<std::string, std::string>& mapHeaders,
                   bool fRun);
 
-#endif // BITCOIN_RPCSERVER_H
+#endif // HODLCOIN_RPCSERVER_H

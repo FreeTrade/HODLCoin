@@ -1,0 +1,27 @@
+# /etc/conf.d/hodlcoind: config file for /etc/init.d/hodlcoind
+
+# Config file location
+#HODLCOIND_CONFIGFILE="/etc/hodlcoin/hodlcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $HODLCOIND_USER)
+#HODLCOIND_PIDDIR="/var/run/hodlcoind"
+
+# What filename to give the pidfile
+#HODLCOIND_PIDFILE="${HODLCOIND_PIDDIR}/hodlcoind.pid"
+
+# Where to write hodlcoind data (be mindful that the blockchain is large)
+#HODLCOIND_DATADIR="/var/lib/hodlcoind"
+
+# User and group to own hodlcoind process
+#HODLCOIND_USER="hodlcoin"
+#HODLCOIND_GROUP="hodlcoin"
+
+# Path to hodlcoind executable
+#HODLCOIND_BIN="/usr/bin/hodlcoind"
+
+# Nice value to run hodlcoind under
+#HODLCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+HODLCOIND_OPTS="-disablewallet"
+

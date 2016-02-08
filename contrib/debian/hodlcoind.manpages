@@ -1,0 +1,3 @@
+debian/manpages/hodlcoind.1
+debian/manpages/hodlcoin.conf.5
+debian/manpages/hodlcoin-cli.1
