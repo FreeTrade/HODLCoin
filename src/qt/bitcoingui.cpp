@@ -202,12 +202,12 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle *networkStyle, QWidget *parent) :
     frameBlocksLayout->addWidget(labelBlocksIcon);
     frameBlocksLayout->addStretch();
     
-    // Set mining pixmap^M
-    labelMiningIcon->setPixmap(QIcon(":/icons/transaction_conflicted").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));^M
-    QTimer *timerMiningIcon = new QTimer(labelMiningIcon);^M
-    timerMiningIcon->start(MODEL_UPDATE_DELAY);^M
-    connect(timerMiningIcon, SIGNAL(timeout()), this, SLOT(updateMiningIcon()));^M
-    // Set initial values for mining icon^M
+    // Set mining pixmap
+    labelMiningIcon->setPixmap(QIcon(":/icons/transaction_conflicted").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+    QTimer *timerMiningIcon = new QTimer(labelMiningIcon);
+    timerMiningIcon->start(MODEL_UPDATE_DELAY);
+    connect(timerMiningIcon, SIGNAL(timeout()), this, SLOT(updateMiningIcon()));
+    // Set initial values for mining icon
     fGenerate = false;
     dHashesPerSec = 0;
 
