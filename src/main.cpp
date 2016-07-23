@@ -543,6 +543,7 @@ CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& loc
 
 CCoinsViewCache *pcoinsTip = NULL;
 CBlockTreeDB *pblocktree = NULL;
+int minerStopFlag = 0;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -4609,6 +4610,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 LOCK(cs_main);
                 Misbehaving(pfrom->GetId(), nDoS);
             }
+        } else {
+					minerStopFlag = 1;
         }
 
     }
