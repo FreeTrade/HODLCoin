@@ -10,6 +10,7 @@
 #include "consensus/consensus.h"
 #include "consensus/validation.h"
 #include "hash.h"
+#include "init.h"
 #include "main.h"
 #include "net.h"
 #include "pow.h"
@@ -493,9 +494,10 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-void static BitcoinMiner(CWallet *pwallet, int nThreads)
+void static BitcoinMiner(CWallet *pwallet, uint32_t minerI, uint32_t minerN, int nThreads)
 {
 	fGenerate = true;
+	minerStopFlag = 0;
     LogPrintf("HOdlcoinMiner started\n");
     srand(clock());
     string ma=GetArg("-miningaddress", "");
@@ -509,8 +511,15 @@ void static BitcoinMiner(CWallet *pwallet, int nThreads)
     CReserveKey reservekey(pwallet);
     unsigned int nExtraNonce = 0;
 
-    char *scratchpad;
-    scratchpad=new char[(1<<30)];
+    char __attribute__ ((aligned (16))) *scratchpad = new char[(1<<30)];
+    /*
+		__thread char *scratchpad = NULL;
+		scratchpad = (char*) mmap(0, 1<<30, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB | MAP_POPULATE, 0, 0);
+		if (scratchpad == MAP_FAILED) {
+			LogPrintf("Scratchpad mmap failed: %d\n", errno);
+			scratchpad = (char*) malloc(1<<30);
+		}
+		*/
 
     long startTime = time(NULL);
     long totalHashes=0;
@@ -542,13 +551,14 @@ void static BitcoinMiner(CWallet *pwallet, int nThreads)
 
             if(ma!=""){
             	if(validateAddress(ma)) {
-           		    LogPrintf("HOdlcoinMiner: Mining to User supplied address %s\n",ma);
-                	pblocktemplate= auto_ptr<CBlockTemplate>(CreateNewBlockWithAddress(ma));
+                    LogPrintf("HOdlcoinMiner: Mining to User supplied address %s\n",ma);
+                    pblocktemplate= auto_ptr<CBlockTemplate>(CreateNewBlockWithAddress(ma));
                 }else{
-                	LogPrintf("HOdlcoinMiner: WARNING! User supplied address is invalid, defaulting to mempool address.\n");
-                	pblocktemplate= auto_ptr<CBlockTemplate>(CreateNewBlockWithKey(reservekey));
+                    LogPrintf("HOdlcoinMiner: WARNING! User supplied address is invalid, defaulting to keypool address.\n");
+                    pblocktemplate= auto_ptr<CBlockTemplate>(CreateNewBlockWithKey(reservekey));
                 }
             }else{
+                LogPrintf("HOdlcoinMiner: Mining to keypool address.\n");
                 pblocktemplate= auto_ptr<CBlockTemplate>(CreateNewBlockWithKey(reservekey));
             }
             if (!pblocktemplate.get())
@@ -569,22 +579,26 @@ void static BitcoinMiner(CWallet *pwallet, int nThreads)
             nHPSTimerStart = GetTimeMillis();
             arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
             uint256 hash;
-            uint32_t nNonce = 0;
+            uint32_t nNonce = minerI;
+            int collisions;
+
             while (true) {
-                // Check if something found
+                //pblock->nNonce = (clock()+rand())%9999;
+                //minerStopFlag = 0;
+                if (fGenerate)
+                    minerStopFlag = 0;
 
-                pblock->nNonce = (clock()+rand())%9999;
-
-                for(int i=0;i<1;i++){
-                    pblock->nNonce=pblock->nNonce+1;
-                    int collisions=0;
-                    hash=pblock->FindBestPatternHash(collisions,scratchpad,nThreads);
-                    totalHashes=totalHashes+collisions;
+                for (int i = 0; i < 20 && minerStopFlag == 0 && fGenerate && !ShutdownRequested(); i++) {
+                    pblock->nNonce = nNonce;
+                    nNonce += minerN;
+                    hash = pblock->FindBestPatternHash(collisions, scratchpad, nThreads, &minerStopFlag);
+                    totalHashes = totalHashes + collisions;
                     dHashesPerSec = (time(NULL) != startTime ? totalHashes / (time(NULL) - startTime) : 0);
-                    LogPrintf("HOdlcoinMiner:\n");
+                    LogPrintf("HOdlcoinMiner: %d/%d\n", minerI, minerN);
                     LogPrintf("search finished - best hash  \n  hash: %s collisions:%d gethash:%s ba:%d bb:%d nonce:%d \ntarget: %s\n", hash.GetHex(), collisions, pblock->GetHash().GetHex(), pblock->nStartLocation, pblock->nFinalCalculation, pblock->nNonce, hashTarget.GetHex());
-                    LogPrintf("Hashes Per Second=%d (total seconds=%d hashes=%d)\n",dHashesPerSec,((time(NULL)-startTime)),totalHashes);
-                    if (UintToArith256(hash) <= hashTarget){
+                    LogPrintf("Hashes Per Second=%d (total seconds=%d hashes=%d)\n", dHashesPerSec, time(NULL) - startTime, totalHashes);
+                    
+                    if (UintToArith256(hash) <= hashTarget) {
                         assert(hash == pblock->GetHash());
                         SetThreadPriority(THREAD_PRIORITY_NORMAL);
                         LogPrintf("HOdlcoinMiner:\n");
@@ -593,9 +607,7 @@ void static BitcoinMiner(CWallet *pwallet, int nThreads)
                         SetThreadPriority(THREAD_PRIORITY_LOWEST);
 
                         // In regression test mode, stop mining after a block is found.
-                        if (chainparams.MineBlocksOnDemand())
-                            throw boost::thread_interrupted();
-
+                        if (chainparams.MineBlocksOnDemand()) throw boost::thread_interrupted();
                         break;
                     }
                 }
@@ -665,6 +677,7 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
     if (minerThreads != NULL)
     {
         isInterrupting=true;
+        minerStopFlag=1;
         minerThreads->interrupt_all();
         minerThreads->join_all();
         delete minerThreads;
@@ -675,11 +688,14 @@ void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
     if (nThreads == 0 || !fGenerate)
         return;
 
+    if (fGenerate)
+        minerStopFlag=0;
+
     minerThreads = new boost::thread_group();
     int miners=GetArg("-minermemory",1);
     for(int i=0;i<miners;i++){
-        minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet, nThreads));
-        MilliSleep(2000);
+        minerThreads->create_thread(boost::bind(&BitcoinMiner, pwallet, i, miners, nThreads));
+        MilliSleep(200);
     }
 }
 
