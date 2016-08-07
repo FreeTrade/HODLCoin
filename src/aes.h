@@ -2,7 +2,6 @@
 #define AES_H
 
 #include <stdint.h>
-#include <x86intrin.h>
 
 #define AES_PARALLEL_N 8
 #define BLOCK_COUNT 256

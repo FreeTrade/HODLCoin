@@ -1,9 +1,9 @@
 #include "aes.h"
 
+#pragma GCC target("aes")
+
 #include <stdint.h>
 #include <x86intrin.h>
-
-#pragma GCC target("aes")
 
 static inline void ExpandAESKey256_sub1(__m128i *tmp1, __m128i *tmp2)
 {

@@ -182,6 +182,7 @@ namespace patternsearch
 	    }
 	}
 
+
 	std::vector< std::pair<uint32_t,uint32_t> > pattern_search(uint256 midHash, char *mainMemoryPsuedoRandomData, int totalThreads, int* minerStopFlag) {
 		boost::this_thread::disable_interruption di;
 		std::vector< std::pair<uint32_t,uint32_t> > results;
