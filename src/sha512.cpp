@@ -4,6 +4,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <endian.h>
 #include "emmintrin.h"
 #include "tmmintrin.h"
 #include "smmintrin.h"
@@ -18,7 +19,7 @@
 #define SIGMA4(x) (ROR64(x, 19) ^ ROR64(x, 61) ^ SHR64(x, 6))
 
 //Rotate right operation
-#define ROR64(a, n) _mm256_or_si256(_mm256_srli_epi64(a, n), _mm256_slli_epi64(a, sizeof(ulong)*8 - n))
+#define ROR64(a, n) _mm256_or_si256(_mm256_srli_epi64(a, n), _mm256_slli_epi64(a, sizeof(long)*8 - n))
 
 //Shift right operation
 #define SHR64(a, n) _mm256_srli_epi64(a, n)
