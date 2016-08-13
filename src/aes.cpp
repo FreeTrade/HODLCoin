@@ -101,8 +101,9 @@ static inline void AES256Core(__m128i* State, const __m128i* ExpandedKey)
 {
     const uint32_t N = AES_PARALLEL_N;
 
-    for(unsigned int j=0; j<N; ++j)
+    for(unsigned int j=0; j<N; ++j) {
         State[j] = _mm_xor_si128(State[j], ExpandedKey[j*16+0]);
+    }
 
     AESENC_N(1)
     AESENC_N(2)
@@ -118,8 +119,9 @@ static inline void AES256Core(__m128i* State, const __m128i* ExpandedKey)
     AESENC_N(12)
     AESENC_N(13)
 
-    for(unsigned int j=0; j<N; ++j)
+    for(unsigned int j=0; j<N; ++j) {
         State[j] = _mm_aesenclast_si128(State[j], ExpandedKey[j*16+14]);
+    }
 }
 
 static void AES256CBC(__m128i** data, const __m128i** next, const __m128i* ExpandedKey, __m128i* IV)
