@@ -198,7 +198,7 @@ namespace patternsearch
 
 		bool aes_ni_supported = false;
 		bool avx2_supported = false;
-#if (__x86_64__)
+#if (__x86_64__ && !(__APPLE__))
 		uint32_t eax, ebx, ecx, edx;
 		eax = ebx = ecx = edx = 0;
 		__get_cpuid(1, &eax, &ebx, &ecx, &edx);
