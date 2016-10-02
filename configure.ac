@@ -895,10 +895,6 @@ unset CPPFLAGS
 CPPFLAGS="$CPPFLAGS_TEMP"
 
 case $host in
-   i686-*-*)
-     CRYPTO_AES_CXXFLAGS="-maes"
-     CRYPTO_AVX2_CXXFLAGS="-mavx2"
-     ;;
    x86_64-*-*)
      CRYPTO_AES_CXXFLAGS="-maes"
      CRYPTO_AVX2_CXXFLAGS="-mavx2"
