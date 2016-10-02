@@ -75,6 +75,7 @@ endif
 # hodlcoin core #
 BITCOIN_CORE_H = \
   addrman.h \
+  aligned_malloc.h \
   aes.h \
   alert.h \
   amount.h \
