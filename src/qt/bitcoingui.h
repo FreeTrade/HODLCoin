@@ -173,6 +173,9 @@ public Q_SLOTS:
 
     /** set mining status */
     void setMining(bool mining, double hashrate, int threads, int cores);
+
+    void maturedCoinsNotification(int count, int init, CAmount& amount);
+
 #endif // ENABLE_WALLET
 
 private Q_SLOTS:

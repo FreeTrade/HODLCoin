@@ -134,6 +134,7 @@ QT_MOC_CPP = \
   qt/moc_transactiondescdialog.cpp \
   qt/moc_transactionfilterproxy.cpp \
   qt/moc_transactiontablemodel.cpp \
+  qt/moc_deposittablemodel.cpp \
   qt/moc_transactionview.cpp \
   qt/moc_utilitydialog.cpp \
   qt/moc_walletframe.cpp \
@@ -205,6 +206,7 @@ BITCOIN_QT_H = \
   qt/transactionfilterproxy.h \
   qt/transactionrecord.h \
   qt/transactiontablemodel.h \
+  qt/deposittablemodel.h \
   qt/transactionview.h \
   qt/utilitydialog.h \
   qt/walletframe.h \
@@ -313,6 +315,7 @@ BITCOIN_QT_CPP += \
   qt/transactionfilterproxy.cpp \
   qt/transactionrecord.cpp \
   qt/transactiontablemodel.cpp \
+  qt/deposittablemodel.cpp \
   qt/transactionview.cpp \
   qt/walletframe.cpp \
   qt/walletmodel.cpp \

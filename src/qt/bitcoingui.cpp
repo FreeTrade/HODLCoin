@@ -977,6 +977,18 @@ void BitcoinGUI::incomingTransaction(const QString& date, int unit, const CAmoun
     message((amount)<0 ? tr("Sent transaction") : tr("Incoming transaction"),
              msg, CClientUIInterface::MSG_INFORMATION);
 }
+
+void BitcoinGUI::maturedCoinsNotification(int count, int unit, CAmount& amount)
+{
+	LogPrintf("got maturedCoinsNotification for %d/%s\n", count, BitcoinUnits::formatWithUnit(BitcoinUnits::HODL, amount, true).data() );
+
+    // On matured coins, make an info balloon
+    QString msg = tr("Count: %1\n").arg(count) +
+                  tr("Amount: %1\n").arg(BitcoinUnits::formatWithUnit(unit, amount, true));
+    message(tr("Matured coins"),
+             msg, CClientUIInterface::MSG_INFORMATION);
+}
+
 #endif // ENABLE_WALLET
 
 void BitcoinGUI::dragEnterEvent(QDragEnterEvent *event)
