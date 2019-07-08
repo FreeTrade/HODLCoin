@@ -986,7 +986,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     string interestRateTable=ss.str();
     const std::vector<unsigned char> data(interestRateTable.begin(), interestRateTable.end());
     int rateTableHash=MurmurHash3(1989,data);
-    assert(rateTableHash==-1235313936);
+    assert(rateTableHash==-829732931);
     LogPrintf("Rate Table Hash=%d\n",rateTableHash);
 
 
