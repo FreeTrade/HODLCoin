@@ -1,4 +1,4 @@
-# **HODLcoin** [![Build Status](https://travis-ci.org/HOdlcoin/HOdlcoin.svg?branch=HODLCoin0.11.3)](https://travis-ci.org/HOdlcoin/HOdlcoin) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=3.0.2&x2=0)](https://badge.fury.io/gh/HOdlcoin%2FHOdlcoin)
+# **HODLcoin** [![Build Status](https://travis-ci.org/HOdlcoin/HOdlcoin.svg?branch=HODLCoin0.11.3)](https://travis-ci.org/HOdlcoin/HOdlcoin) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=4.0.0&x2=0)](https://badge.fury.io/gh/HOdlcoin%2FHOdlcoin)
 <img src="http://i.imgur.com/5EAaA7b.png" width="400">
 
 [http://www.HOdlcoin.com](http://www.HOdlcoin.com)
