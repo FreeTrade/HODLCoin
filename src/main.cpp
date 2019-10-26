@@ -4074,8 +4074,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
-        if (pfrom->nVersion < (chainActive.Height() < MININGFEESFORK2-4000 ? MIN_PEER_PROTO_MINERFEES_VERSION : MIN_PEER_PROTO_MINERFEES2_VERSION))
-        {
+        if (pfrom->nVersion < (chainActive.Height() < MININGFEESFORK-4000 ? MIN_PEER_PROTO_THEUNFORKENING_VERSION : MIN_PEER_PROTO_MINERFEES_VERSION))
+	{
             // disconnect from peers older than this proto version
             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, pfrom->nVersion);
             pfrom->PushMessage("reject", strCommand, REJECT_OBSOLETE,
